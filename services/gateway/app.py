@@ -10,7 +10,10 @@ app = FastAPI()
 # allow the frontend dev server(s) to access the gateway
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080", "http://localhost:5173", "http://127.0.0.1:8080"],
+    # Development-friendly: allow all origins so the frontend served from
+    # the VM IP or any dev server can call the gateway. Replace with a
+    # specific origin list for production.
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
