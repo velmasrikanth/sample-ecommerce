@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
-const GATEWAY = import.meta.env.VITE_GATEWAY_URL || 'http://localhost:5000'
+// Determine gateway URL:
+// 1) If `VITE_GATEWAY_URL` is provided at build time, use it.
+// 2) Otherwise derive from the current page hostname so the UI works
+//    when served from the VM (e.g. http://<VM_IP>:8080) and the
+//    gateway runs on the same host at port 5000.
+const GATEWAY = import.meta.env.VITE_GATEWAY_URL || `http://${window.location.hostname}:5000`
 
 function fetchJSON(path, opts){
   return fetch(GATEWAY + path, opts).then(async r => {
