@@ -4,9 +4,9 @@ FROM node:18-alpine AS builder
 # Create app directory
 WORKDIR /app
 
-# Copy package.json and install dependencies
-COPY package.json .
-RUN npm install
+# Copy package manifests and install dependencies (use flags to reduce noise and network load)
+COPY package*.json ./
+RUN npm install --no-audit --silent --prefer-offline
 
 # Copy source and build
 COPY . .
