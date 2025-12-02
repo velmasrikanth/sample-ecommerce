@@ -7,12 +7,16 @@ services:
       - "5001:5001"
     environment:
       - FLASK_ENV=production
+    volumes:
+      - ./services/product-service/products.db:/app/products.db
 
   user:
     build: ./services/user-service
     container_name: sample_user
     ports:
       - "5002:5002"
+    volumes:
+      - ./services/user-service/users.json:/app/users.json
 
   order:
     build: ./services/order-service
@@ -22,6 +26,8 @@ services:
     environment:
       - USER_SERVICE_URL=http://user:5002
       - PRODUCT_SERVICE_URL=http://product:5001
+    volumes:
+      - ./services/order-service/data:/app/data
 
   gateway:
     build: ./services/gateway
@@ -36,6 +42,8 @@ services:
       - product
       - user
       - order
+    volumes:
+      - ./services/gateway:/app
 
   frontend:
     build: ./services/frontend-react
@@ -44,3 +52,5 @@ services:
       - "8080:80"
     depends_on:
       - gateway
+    volumes:
+      - ./services/frontend-react:/app
