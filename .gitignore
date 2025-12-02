@@ -1,0 +1,17 @@
+# Ignore runtime data files for the services
+/services/product-service/products.db
+/services/user-service/users.json
+/services/order-service/data/
+
+# Python virtualenvs
+.venv/
+env/
+
+# Node modules and build outputs
+node_modules/
+dist/
+
+# Editor / OS files
+.vscode/
+.DS_Store
+Thumbs.db
